@@ -5,10 +5,8 @@ import sqlite3
 API_TOKEN = '7554944563:AAH-F1rD_QUCNNhzaUnSUqpWwoI8poAxIQg'
 bot = telebot.TeleBot(API_TOKEN)
 
-
-# ایجاد پایگاه داده و جدول
 def create_database():
-    conn = sqlite3.connect('user_dataaa.db')  # نام پایگاه داده
+    conn = sqlite3.connect('user_dataaa.db')  
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -24,7 +22,7 @@ def create_database():
     conn.close()
 
 
-create_database()  # ایجاد پایگاه داده و جدول
+create_database() 
 
 questions = [
     "سوال 1: آیا در هفته گذشته احساس ناراحتی کرده‌اید؟",
@@ -55,11 +53,11 @@ def welcome(message):
 def get_phone_number(message):
     if message.contact:
         user_phone = message.contact.phone_number
-        user_first_name = message.from_user.first_name  # نام کاربر
-        user_last_name = message.from_user.last_name if message.from_user.last_name else ""  # نام خانوادگی کاربر
-        user_telegram_id = message.from_user.id  # آیدی تلگرام کاربر
+        user_first_name = message.from_user.first_name  
+        user_last_name = message.from_user.last_name if message.from_user.last_name else ""  
+        user_telegram_id = message.from_user.id  
 
-        # ذخیره اطلاعات کاربر
+        
         save_user_info(user_telegram_id, user_first_name, user_last_name, user_phone, "نامشخص")
         ask_question(message.chat.id, 0, 0)
     else:
@@ -102,7 +100,7 @@ def show_result(chat_id, ppehar_count):
         depression_status = "تو افسرده نیستی."
         bot.send_message(chat_id, depression_status)
 
-    # بروزرسانی وضعیت افسردگی در پایگاه داده
+
     update_depression_status(chat_id, depression_status)
 
     bot.send_message(chat_id, "از اینکه از من استفاده کردی خیلی ممنونم!")
